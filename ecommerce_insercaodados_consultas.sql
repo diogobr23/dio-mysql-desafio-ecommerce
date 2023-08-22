@@ -106,5 +106,26 @@ JOIN produtosFornecedores pf ON f.idFornecedor = pf.idProdutoFornecedorFornecedo
 JOIN produtos p ON pf.idProdutoFornecedorProduto = p.idProduto;
 
 -- consultando os valores inseridos na tabela produtosFornecedores             
-select * from produtosFornecedores;                    
+select * from produtosFornecedores;          
+
+-- Exibir os produtos de categoria 'Eletrônico'
+SELECT * FROM produtos WHERE categoria = 'Eletrônico';
+
+-- Exibir os pedidos feitos por um cliente específico
+SELECT * FROM pedidos WHERE idPedidoCliente = 1;
+
+-- Exibir produtos ordenados por valor (do mais barato ao mais caro)
+SELECT * FROM produtos ORDER BY valor;
+
+-- Exibir pedidos do cliente 1 ordenados por data de entrega
+SELECT * FROM pedidos WHERE idPedidoCliente = 1 ORDER BY entregaData;
+
+-- Exibir produtos e suas quantidades nos estoques, filtrando estoques com quantidade maior que 5
+SELECT p.nomeProduto, e.localidade, ep.quantidade
+FROM produtos p
+JOIN estoquesLocalidades el ON p.idProduto = el.idEstoqueLocalidadeProduto
+JOIN estoquesProdutos ep ON el.idEstoqueLocalidadeEstoque = ep.idEstoqueProduto
+JOIN estoquesProdutos e ON el.idEstoqueLocalidadeEstoque = e.idEstoqueProduto
+HAVING ep.quantidade > 5;
+          
                     
