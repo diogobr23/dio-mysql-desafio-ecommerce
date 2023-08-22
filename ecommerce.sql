@@ -23,7 +23,7 @@ create table produtos(
 	idProduto int auto_increment primary key,
     nomeProduto varchar(10) not null,
     classificacaoCrianca bool default false,
-    categoria enum('Eletrônico', 'Vestimenta', 'Brinquedos', 'Alimentos', 'Móveis') not null,
+    categoria enum('Eletrônico', 'Vestuário', 'Brinquedos', 'Alimentos', 'Móveis') not null,
     descricao varchar(255),
     valor float not null,
     avaliacao float not null default 0,
@@ -35,7 +35,7 @@ alter table produtos auto_increment=1;
 create table pedidos(
 	idPedido int auto_increment primary key,
     idPedidoCliente int,
-    statusPedido enum('Em andamento', 'Em processando', 'Enviado', 'Entregue') default 'Em processando',
+    statusPedido enum('Em andamento', 'Em processamento', 'Enviado', 'Entregue', 'Cancelado') default 'Em processamento',
     descricao varchar(255),
     frete float default 10,
     pagamento bool default false,
@@ -55,7 +55,7 @@ alter table estoquesProdutos auto_increment=1;
 create table fornecedores(
 	idFornecedor int auto_increment primary key,
     cnpj char(15) not null,
-    razaoSocial varchar(45) not null,
+    razaoSocial varchar(255) not null,
     contato char(11) not null,
     constraint unique_cnpj_fornecedor unique (cnpj),
     constraint unique_razaoSocial_fornecedor unique (razaoSocial)
@@ -65,16 +65,19 @@ alter table fornecedores auto_increment=1;
 -- criar tabela vendedor
 create table vendedores(
 	idVendedor int auto_increment primary key,
-    razaoSocial varchar(45) not null,
+    razaoSocial varchar(255) not null,
     cnpj char(15),
     cpf char(11),
     localidade varchar(45),
-    nomeFantasia varchar(45),
+    nomeFantasia varchar(255),
     constraint unique_razaoSocial_vendedor unique (razaoSocial),
     constraint unique_cnpj_vendedor unique (cnpj),
     constraint unique_cpf_vendedor unique (cpf)
 );
 alter table vendedores auto_increment=1;
+
+
+
 
 -- criar tabela Produto / Vendedor
 create table produtosVendedores(
@@ -101,7 +104,7 @@ create table produtosPedidos(
 create table estoquesLocalidades(
 	idEstoqueLocalidadeProduto int,
     idEstoqueLocalidadeEstoque int,
-    localidade varchar(45) not null,
+    localidade varchar(255) not null,
     primary key (idEstoqueLocalidadeProduto, idEstoqueLocalidadeEstoque),
     constraint fk_estoqueLocalidade_produto foreign key (idEstoqueLocalidadeProduto) references produtos(idProduto),
     constraint fk_estoqueLocalidade_estoque foreign key (idEstoqueLocalidadeEstoque) references estoquesProdutos(idEstoqueProduto)
