@@ -42,11 +42,12 @@ Este projeto de E-Commerce oferece as seguintes funcionalidades básicas:
 Aqui estão algumas consultas SQL de exemplo que podem ser usadas para recuperar informações do banco de dados:
 
 1. **Listar todos os fornecedores e seus produtos**
-   
+```sql   
 SELECT f.razaoSocial, p.nomeProduto
 FROM fornecedores f
 JOIN produtosFornecedores pf ON f.idFornecedor = pf.idProdutoFornecedorFornecedor
 JOIN produtos p ON pf.idProdutoFornecedorProduto = p.idProduto;
+```sql
 
 3. **Consultando os valores inseridos na tabela produtosFornecedores**
           
