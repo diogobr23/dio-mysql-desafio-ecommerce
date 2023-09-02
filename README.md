@@ -1,28 +1,73 @@
-# dio-mysql-desafio-ecommerce
+# Projeto de E-Commerce
 
-# Projeto E-commerce MySQL
-
-Este é um projeto de exemplo de modelagem de banco de dados para um sistema de e-commerce usando MySQL. O projeto inclui a criação de tabelas para clientes, pedidos, produtos, fornecedores, estoque e suas relações.
+Este é um projeto de E-Commerce (comércio eletrônico) que foi desenvolvido usando MySQL como sistema de gerenciamento de banco de dados. O projeto inclui a estrutura do banco de dados, inserção de dados de exemplo e consultas SQL para demonstrar algumas funcionalidades.
 
 ## Estrutura do Banco de Dados
 
-O banco de dados é composto pelas seguintes tabelas:
+O banco de dados deste projeto é composto pelas seguintes tabelas:
 
-- **Cliente**: Armazena informações sobre os clientes que fazem pedidos.
-- **Pedido**: Armazena informações sobre os pedidos feitos pelos clientes.
-- **Produto**: Contém detalhes sobre os produtos disponíveis na loja.
-- **Fornecedor**: Registra os fornecedores dos produtos.
-- **ProdutoFornecedor**: Estabelece a relação entre produtos e fornecedores.
-- **Estoque**: Armazena informações sobre os locais de estoque.
-- **ProdutoEstoque**: Associa produtos a locais de estoque.
-- **ProdutoPedido**: Relaciona produtos e pedidos, registrando a quantidade em cada pedido.
+1. `clientes`: Armazena informações sobre os clientes, como nome, CPF, endereço e data de nascimento.
 
-## Utilização
+2. `produtos`: Contém detalhes dos produtos disponíveis, como nome, categoria, preço e descrição.
 
-O código SQL para criar as tabelas e relações pode ser encontrado em (./ecommerce.sql). Você pode copiar e executar esse código no MySQL para criar o esquema do banco de dados.
+3. `pedidos`: Registra informações sobre os pedidos, incluindo o cliente, status, descrição, frete e pagamento.
 
-Além disso, você também pode conferir a visualização do diagrama das tabelas em (./ecommerce_diagrama.png).
+4. `estoquesProdutos`: Gerencia o estoque de produtos, incluindo quantidade e localização.
 
-## Contribuições
+5. `fornecedores`: Armazena detalhes dos fornecedores de produtos, como CNPJ, razão social e contato.
 
-Este é um projeto de exemplo, mas sugestões de melhorias são bem-vindas! Sinta-se à vontade para abrir uma "issue" ou enviar um "pull request" se você tiver alguma ideia ou correção a fazer.
+6. `vendedores`: Registra informações sobre vendedores terceirizados, como CNPJ, CPF, localização e nome fantasia.
+
+7. `produtosVendedores`: Relaciona produtos a vendedores, incluindo a quantidade disponível.
+
+8. `produtosPedidos`: Relaciona produtos a pedidos, registrando a quantidade e status do pedido.
+
+9. `estoquesLocalidades`: Relaciona produtos a locais de estoque.
+
+10. `produtosFornecedores`: Relaciona produtos a fornecedores, registrando a quantidade fornecida.
+
+## Funcionalidades
+
+Este projeto de E-Commerce oferece as seguintes funcionalidades básicas:
+
+- Cadastro e gerenciamento de clientes.
+- Cadastro e gerenciamento de produtos.
+- Realização e acompanhamento de pedidos.
+- Gerenciamento de estoque.
+- Cadastro de fornecedores e vendedores terceirizados.
+- Relações entre produtos, vendedores, fornecedores e pedidos.
+
+## Consultas SQL de Exemplo
+
+Aqui estão algumas consultas SQL de exemplo que podem ser usadas para recuperar informações do banco de dados:
+
+1. **Listar todos os fornecedores e seus produtos**
+SELECT f.razaoSocial, p.nomeProduto
+FROM fornecedores f
+JOIN produtosFornecedores pf ON f.idFornecedor = pf.idProdutoFornecedorFornecedor
+JOIN produtos p ON pf.idProdutoFornecedorProduto = p.idProduto;
+
+2. **Consultando os valores inseridos na tabela produtosFornecedores**         
+select * from produtosFornecedores;          
+
+3. **Exibir os produtos de categoria 'Eletrônico'**
+SELECT * FROM produtos WHERE categoria = 'Eletrônico';
+
+4. **Exibir os pedidos feitos por um cliente específico**
+SELECT * FROM pedidos WHERE idPedidoCliente = 1;
+
+5. **Exibir produtos ordenados por valor (do mais barato ao mais caro)**
+SELECT * FROM produtos ORDER BY valor;
+
+6. **Exibir pedidos do cliente 1 ordenados por data de entrega**
+SELECT * FROM pedidos WHERE idPedidoCliente = 1 ORDER BY entregaData;
+
+7. **Exibir produtos e suas quantidades nos estoques, filtrando estoques com quantidade maior que 5**
+SELECT p.nomeProduto, e.localidade, ep.quantidade
+FROM produtos p
+JOIN estoquesLocalidades el ON p.idProduto = el.idEstoqueLocalidadeProduto
+JOIN estoquesProdutos ep ON el.idEstoqueLocalidadeEstoque = ep.idEstoqueProduto
+JOIN estoquesProdutos e ON el.idEstoqueLocalidadeEstoque = e.idEstoqueProduto
+HAVING ep.quantidade > 5;
+          
+                    
