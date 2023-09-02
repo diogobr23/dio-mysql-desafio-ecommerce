@@ -42,27 +42,34 @@ Este projeto de E-Commerce oferece as seguintes funcionalidades básicas:
 Aqui estão algumas consultas SQL de exemplo que podem ser usadas para recuperar informações do banco de dados:
 
 1. **Listar todos os fornecedores e seus produtos**
+   
 SELECT f.razaoSocial, p.nomeProduto
 FROM fornecedores f
 JOIN produtosFornecedores pf ON f.idFornecedor = pf.idProdutoFornecedorFornecedor
 JOIN produtos p ON pf.idProdutoFornecedorProduto = p.idProduto;
 
-2. **Consultando os valores inseridos na tabela produtosFornecedores**         
+3. **Consultando os valores inseridos na tabela produtosFornecedores**
+          
 select * from produtosFornecedores;          
 
-3. **Exibir os produtos de categoria 'Eletrônico'**
+5. **Exibir os produtos de categoria 'Eletrônico'**
+   
 SELECT * FROM produtos WHERE categoria = 'Eletrônico';
 
-4. **Exibir os pedidos feitos por um cliente específico**
+7. **Exibir os pedidos feitos por um cliente específico**
+   
 SELECT * FROM pedidos WHERE idPedidoCliente = 1;
 
-5. **Exibir produtos ordenados por valor (do mais barato ao mais caro)**
+9. **Exibir produtos ordenados por valor (do mais barato ao mais caro)**
+    
 SELECT * FROM produtos ORDER BY valor;
 
-6. **Exibir pedidos do cliente 1 ordenados por data de entrega**
+11. **Exibir pedidos do cliente 1 ordenados por data de entrega**
+    
 SELECT * FROM pedidos WHERE idPedidoCliente = 1 ORDER BY entregaData;
 
-7. **Exibir produtos e suas quantidades nos estoques, filtrando estoques com quantidade maior que 5**
+13. **Exibir produtos e suas quantidades nos estoques, filtrando estoques com quantidade maior que 5**
+    
 SELECT p.nomeProduto, e.localidade, ep.quantidade
 FROM produtos p
 JOIN estoquesLocalidades el ON p.idProduto = el.idEstoqueLocalidadeProduto
